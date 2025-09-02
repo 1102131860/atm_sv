@@ -1,0 +1,5 @@
+# ignore all files in the sim directory
+sim/*
+# expect files
+!sim/Makefile
+!sim/ATM.include

@@ -1,0 +1,27 @@
+# src
+data_pkg.sv
+util_pkg.sv
+cpu_bus_state_pkg.sv
+squat_state_pkg.sv
+utopia_rx_state_pkg.sv
+utopia_tx_state_pkg.sv
+utopia_if.sv
+cpu_if.sv
+lut_if.sv
+utopia_rx.sv
+utopia_tx.sv
+squat.sv
+# tb
+include.svh
+transaction.sv
+config.sv
+generator.sv
+driver.sv
+monitor.sv
+scoreboard.sv
+coverage.sv
+callbacks.sv
+cpu_driver.sv
+environment.sv
+test.sv
+top.sv
