@@ -79,7 +79,7 @@ In the **utopia** interface, there are following signal components:
 
 - reset: reset internal state machines, counters, FIFO/buffer
 
-- selected: used when multiple devices share a bus, high means this interface is current granted by arbitor (not used in this project)
+- selected: used when multiple devices share a bus, high means this interface is current granted by arbitrator
 
 - ATMcell: ATM Cell Type (a data cell of 53 bytes ), the union of structure for ATM cells (NNI/UNI/Mem)
 
@@ -121,7 +121,7 @@ The **LUT** (look-up table) interface is used in the core of the device called s
                   CPU_if
 ```
 
-To deal with the propority of multiple packets forwarding when receiving them from multiple ports, use **round arbitor** to grant.
+To deal with the propority of multiple packets forwarding when receiving them from multiple ports, use **round arbitrator** to grant.
 
 - The FSM diagram of squat
 
