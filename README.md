@@ -46,6 +46,9 @@ The two ATM formats used in this ATM: the **UNI** format and **UNI** format (4 +
 
 - HEC: Header Error Control. CRC-8 over the first 4 header bytes; used for header error detection/correction
 
+These NNI and UNI structures are grouped together as a **union**, which allows a single piece of storage to represent either type of
+packet.
+
 The cell for rewriting and forwarding configuration, the length of VPI is same with ATM VPI formats and cpu.Addr
 - Cell Configurate Type
 ```
