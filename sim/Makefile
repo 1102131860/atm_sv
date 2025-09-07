@@ -1,7 +1,5 @@
 TOPLEVEL = ATM
 CM_TYPE = line+fsm+assert
-REPORT_DIR = cov_report
-CM_NAME = debug
 RAND_SEED = 42
 # Defines statement for vcs
 # FWDALL
@@ -17,14 +15,10 @@ TB = ../tb/
 # 1.link files, move all the verilog files from the source directory over to this simulation directory
 link_all:
 	rm -f *.sv
-# 	rm -f *.v
 	rm -f *.svh
 
 	ln -s $(SRC)/*.sv .
 	ln -s $(TB)/*.sv .
-# 	ln -s $(SRC)/*.v .
-# 	ln -s $(SRC)/*.svh .
-# 	ln -s $(TB)/*.sv .
 	ln -s $(TB)/*.svh .
 
 
@@ -47,8 +41,7 @@ vcs: $(TOPLEVEL).include
 		+vpdfile+./$(TOPLEVEL).vpd \
 		+define+$(VERILOG_DEFINES) \
 		+testname=$(TESTNAME) \
-		+ntb_random_seed=$(RAND_SEED) \
-# -cm $(CM_TYPE) -cm_dir simv.vdb -cm_name $(CM_NAME)
+		+ntb_random_seed=$(RAND_SEED)
 
 
 # 3. execute program
