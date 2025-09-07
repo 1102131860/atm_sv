@@ -110,7 +110,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="jafz_nOxkqsSOnday29z-30" value="&lt;span style=&quot;font-size: 16px;&quot;&gt;forward[i] &amp;amp;&amp;amp; !Txready[i] &amp;amp;&amp;amp; Txsel_in[i]&lt;br&gt;Txvalid[i] &amp;lt;= &#39;0;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Txsel_out &amp;lt;= &#39;0;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;forward[i] &amp;lt;= &#39;0;&lt;/span&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="jafz_nOxkqsSOnday29z-29">
+        <mxCell id="jafz_nOxkqsSOnday29z-30" value="&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;u&gt;forward[i] &amp;amp;&amp;amp; !Txready[i] &amp;amp;&amp;amp; Txsel_in[i]&lt;/u&gt;&lt;br&gt;Txvalid[i] &amp;lt;= &#39;0;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Txsel_out &amp;lt;= &#39;0;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;forward[i] &amp;lt;= &#39;0;&lt;/span&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;&lt;/span&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="jafz_nOxkqsSOnday29z-29">
           <mxGeometry x="-0.0498" y="-2" relative="1" as="geometry">
             <mxPoint x="2" y="19" as="offset" />
           </mxGeometry>
