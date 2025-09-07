@@ -1,6 +1,8 @@
 # Asynchronous Transfer Mode (ATM) user-to-network interface and forwarding node
 
-The model has been made configurable so that it can easily scaled from a 4x4 quad switch to NxP switch, or any other desired configuration.
+The non-synthesizable behavioral models have been rewritten using the SystemVerilog synthesizable subset.
+
+In addition, the model has been made configurable so that it can easily scaled from a 4x4 quad switch to NxP switch, or any other desired configuration.
 
 ## Design
 ### Data Abstraction
@@ -96,7 +98,7 @@ In the **utopia** interface, there are following signal components:
 
 - Rdy_Dtack: Ready / Data acknowledge, active-low, 0 indicates ack
 
-The **LUT** (look-up table) interfaced is used in the core of the device called squat, in order to provide a latch-based read/write look-up table.
+The **LUT** (look-up table) interface is used in the core of the device called squat, in order to provide a latch-based read/write look-up table.
 
 - Mem: an 256 CellCfgType memory used for squat to look up when forwarding packets
 
@@ -118,7 +120,9 @@ The **LUT** (look-up table) interfaced is used in the core of the device called 
 
 To deal with the propority of multiple packets forwarding when receiving them from multiple ports, use **round arbitor** to grant.
 
+- The FSM diagram of squat
 
+![Squat Finite State Machine Diagram](./images/squat_fsm.png)
 
 ### Utopia Rx and Tx
 
@@ -131,6 +135,89 @@ To deal with the propority of multiple packets forwarding when receiving them fr
 
 ![Tx Finite State Machine Diagram](./images/tx_fsm.png)
 
+## TestBench
 
+![Layered Environemt](./images/layered_environment.png)
 
+The **environemnt** includes
 
+- UNI_generator: Generate UNI type transactions.
+
+- mailbox: UNI generator sends genearted transactions to Driver though mailbox
+
+- event: Driver sends acknowledge to generator through event
+
+- Driver: Receive transactions from generator and apply stimuli to the Rx of squat
+
+- Monitor: Mointor the received packages from Tx of squat
+
+- Config: Configure the total number of packets in the environment and the number of packet each Rx port needs to receive
+
+- Scoreboard: Check whether the packets are forwarded and received between squat's Rx and Tx.
+
+- Coverage: Check how many ports are covered during packet forwarding, using cover group and sampling
+
+- vUtopiaRx: Connect to squat's Rx signals
+
+- vUtopiaTx: Connect to squat's Tx signals
+
+- vCPU_T: connect to CPU's peripheral signals
+
+- CPU_driver: Initially configures the LUT table of squat through CPU peripherial bus
+
+![Design Environment](./images/design_environment.png)
+
+To apply random packets, use **transaction** to randomize the data and apply random constraints inside packets, and there are 2 types transactions `UNI_cell` and `NNI_cell` derived from base transaction `BaseTr`
+
+- UNI_cell: the class wrapping up the UNI format data, with additional function converts to NNI_cell type
+
+- NNI_cell: the class wrapping up the NNI format data
+
+There are some different **callbacks** used to build connections between drivers, scoreboards, monitors and coverage
+
+- Scb_Driver_cbs: Callback class connects driver and scoreboard
+
+- Scb_Monitor_cbs: Callback class connects monitor and scoreboard
+
+- Cov_Monitor_cbs: Callback class connects the monitor and coverage
+
+### Top TestBench
+
+This `top.sv` is used to generate clock and reset signals, and connect between interface *utopia_Rx*, interface *utiopia_Tx*, interface *cpu*, moudle *squat* and moudle *test*. 
+
+### Extension
+
+You can add some specific callbacks or additional constraints at `test.sv`. For instance, add `Driver_cbs_drop` class and instantiates it to drop some transactions.
+
+## Simulation
+
+(1) To link src files from `./src` folder and `./tb` folder (you should under folder `./sim`)
+```
+make link_src
+```
+
+(2) To run the simulation
+```
+make vcs [RAND_SEED=<a_unsigned_integer>]
+```
+e.g.
+```
+make vcs RAND_SEED=42
+```
+if you want to change the `Txports` and `Rxports` definition, you can also modify them inside Makefile 
+
+(3) To see the waveform
+```
+make visualize
+```
+
+(4) To read the coverage reports
+```
+make urgtxt
+```
+and the reports will under `./cov_report` folder
+
+(5) To clean up
+```
+make clean
+```
